@@ -48,7 +48,7 @@
 
 ---
 
-## ⚠️ Penalizaciones automáticas (se descuentan del total)
+## ⚠️ Penalizaciones (se descuentan del total)
 
 | Regla de penalización | Descripción | Descuento |
 |---|---|---:|
@@ -59,7 +59,7 @@
 | **README sin URL pública o sin enlace a PR** | Falta cualquiera de los dos | **−10 pts** |
 | **`Leccion_2.md` ausente o sin capturas** | No se entrega el .md o no contiene evidencias | **−15 pts** |
 | **Nombre visible de proyecto Firebase incorrecto** | No respeta `Apellidos+Nombre+2025` | **−10 pts** |
-| **Credenciales expuestas** | Claves/secretos en el repo | **−30 pts** |
+| **Credenciales expuestas** | Claves/secretos en el repo | **−10 pts** |
 
 > Las penalizaciones se aplican **además** de la puntuación obtenida por criterio. El puntaje final mínimo es 0.
 
