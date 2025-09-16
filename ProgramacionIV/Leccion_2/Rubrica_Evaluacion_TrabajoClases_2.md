@@ -1,4 +1,3 @@
-```markdown
 # Rúbrica de Evaluación — Lección 2 (Manejo de Git y GitHub)
 
 **Actividades**:  
@@ -15,11 +14,11 @@
 
 ## 📦 Requisitos de Entrega (administrativo)
 
-- Entregar el archivo **`README.md`** con la **URL del repositorio en GitHub**.  
+- Entregar **únicamente** la **URL del repositorio público en GitHub**.  
   - **Nombre del repositorio (obligatorio):** `Apellidos+Nombre+Trabajo_clases_leccion_2`  
     - _Ejemplo:_ `PerezGomez+Ana+Trabajo_clases_leccion_2`
-  - Dar acceso al docente al repositorio con el usuario **Najerarodriguez**  
-    `https://github.com/Najerarodriguez`  
+  - Si el curso trabaja bajo el usuario del docente, publicar como:  
+    `https://github.com/Najerarodriguez/Apellidos+Nombre+Trabajo_clases_leccion_2`  
     (Si se usa cuenta personal del estudiante, **mantener exactamente el mismo nombre**).
 - El repositorio debe contener:
   - **Código Flask** de la Lección 1 actualizado para mostrar “**Lección 2**”.
@@ -59,4 +58,3 @@
 | **Cambio directo a `main`** | Se omite PR/MR (merge directo a `main`) | **−10 pts** |
 
 > Las penalizaciones se aplican **además** de la puntuación por criterio. El puntaje final mínimo es 0.
-```
