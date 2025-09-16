@@ -4,7 +4,6 @@
 
 1. Instalar **Flask** y crear un proyecto base
 2. Implementar “**Hola Mundo**” en Flask
-3. Ejecutar en **modo síncrono** y **explicar la limitación** (p. ej., bloqueo mientras atiende una petición)
 
 > **Total:** 100 puntos
 > **Requisito excluyente:** si **no se entrega el archivo .zip** con el código fuente **y** el proyecto **no arranca localmente** siguiendo el `README`, la entrega **no se califica (0/100)**.
@@ -21,7 +20,6 @@
     1. **Estructura del proyecto** (árbol de carpetas/archivos)
     2. **Terminal** ejecutando la app Flask (comando y puerto visibles)
     3. **Navegador** mostrando “Hola Mundo” y **“Apellidos + nombre”**
-    4. **Demostración de bloqueo** (ruta p. ej. `/slow` con `time.sleep`), más una breve nota explicando el efecto
 * En la app Flask debe mostrarse en pantalla el texto: **“Apellidos + nombre”**.
 * **Nombre del archivo .zip (obligatorio):** `Apellidos+Nombre+Trabajo_clases_leccion_1.zip`
   *Ejemplo:* `PerezGomez+Ana+Trabajo_clases_leccion_1.zip`
