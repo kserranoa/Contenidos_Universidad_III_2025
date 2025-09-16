@@ -1,6 +1,6 @@
 # Rúbrica de Evaluación — Lección 1 (React + Firebase)
 **Actividades**:  
-1) Crear un proyecto “Hola Mundo” en React **(sin Vite)**  
+1) Crear un proyecto “Hola Mundo” en React   
 2) Conectar el proyecto a **Firebase**  
 3) Hacer **deploy** en **Firebase Hosting**
 
@@ -29,7 +29,7 @@
 
 | Criterio | Evidencia solicitada | Excelente (100% del criterio) | Aceptable (50%) | Insuficiente (0%) | Puntos |
 |---|---|---|---|---|---:|
-| **1. Proyecto React sin Vite** | ZIP del código (estructura estándar: `src/`, `public/`, `package.json`), proyecto arranca localmente | Proyecto creado **sin Vite** (CRA u otro), estructura mínima correcta y coherente | Estructura mínima presente pero con problemas menores de organización | **Usa Vite** o no arranca localmente | **15** |
+| **1. Proyecto React (sin Vite)** | ZIP del código (estructura estándar: `src/`, `public/`, `package.json`), proyecto arranca localmente | Proyecto creado **sin Vite** (CRA u otro), estructura mínima correcta y coherente | Estructura mínima presente pero con problemas menores de organización | **Usa Vite** o no arranca localmente | **15** |
 | **2. “Apellidos + nombre” visible en la UI** | URL pública + captura en PDF | Texto “Apellidos + nombre” visible y con estilo legible | Texto visible pero con errores de formato/ortografía | Texto ausente en la UI | **10** |
 | **3. Conexión a Firebase** | Código en ZIP (inicialización Firebase), captura de Firebase Console | SDK inicializado correctamente; archivos/config organizados; sin exponer credenciales sensibles | Inicialización funcional pero con organización o comentarios mejorables | No se inicializa Firebase o hay errores de integración | **25** |
 | **4. Deploy en Firebase Hosting** | URL pública activa + captura de hosting en PDF | Deploy exitoso; URL pública operativa; coincide con el código entregado | Deploy funcional pero con advertencias menores (p.ej., título/ícono por defecto) | Sin deploy, URL caída o inaccesible al momento de revisión → **0/100** por requisito excluyente | **30** |
@@ -48,26 +48,8 @@
 | **Nombre de proyecto en Firebase incorrecto** | El **nombre visible** no respeta `Apellidos+Nombre+2025` | **−10 pts** |
 | **PDF sin portada** | El PDF no incluye portada con datos del estudiante | **−5 pts** |
 | **Capturas faltantes** | Falta cualquiera de las 3 capturas requeridas en el PDF | **−5 pts c/u** (hasta **−15**) |
-| **No adjunta ZIP** | No se entrega el .zip con el código | **−40 pts** |
-| **No adjunta PDF** | No se entrega el PDF | **−30 pts** |
+
 
 > Las penalizaciones se aplican **además** de la puntuación obtenida por criterio. El puntaje final mínimo es 0.
 
 ---
-
-## ✅ Checklist de la entrega (para el estudiante)
-- [ ] App React creada **sin Vite** y funcionando localmente  
-- [ ] En pantalla se ve **“Apellidos + nombre”**  
-- [ ] Proyecto **conectado a Firebase** (SDK inicializado)  
-- [ ] **Deploy** hecho en **Firebase Hosting** y **URL pública** abierta  
-- [ ] **ZIP**: `Apellidos+Nombre+Trabajo_clases_leccion_1.zip` (sin `node_modules/`)  
-- [ ] **PDF** con **portada** + 3 **capturas** (estructura del código, inicio de Firebase, navegador con la URL)  
-- [ ] **Nombre visible** del proyecto en Firebase: `Apellidos+Nombre+2025`
-
----
-
-## 🗂️ Recomendaciones técnicas de empaquetado
-- Excluir `node_modules/` del ZIP.  
-- Incluir archivos clave: `package.json`, `package-lock.json` o `yarn.lock`, `src/`, `public/`, configuración de Firebase.  
-- Verificar que la URL pública del deploy **corresponda** al código entregado.  
-- En el PDF, incluir datos de portada: **Apellidos, Nombre, Curso, Lección 1, Fecha**.
