@@ -12,7 +12,7 @@
 
 ---
 
-## 📦 Requisitos de Entrega (administrativo)
+## 📦 Requisitos de Entrega
 
 - Entregar **únicamente** la **URL del repositorio público en GitHub**.  
   - **Nombre del repositorio (obligatorio):** `Apellidos+Nombre+Trabajo_clases_leccion_2`  
