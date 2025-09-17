@@ -26,7 +26,6 @@
 * Crear un repositorio en GitHub.
 * Subir el proyecto Flask.
 * Crear rama `feature`, modificar código (ej. mostrar “Lección 2”), hacer PR/MR y merge.
-* Desplegar en Firebase Hosting o Render.
 
 ---
 
