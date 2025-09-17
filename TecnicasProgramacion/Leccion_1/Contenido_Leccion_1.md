@@ -176,3 +176,103 @@ rodriguez-juan-leccion1/
 ```
 
 ---
+
+
+###################################################################################
+
+````markdown
+# Conectar React con Firebase usando archivo `.env`
+
+---
+
+## 1) Crear archivo `.env`
+
+```bash
+# 👉 Este archivo se coloca en la raíz del proyecto React (junto a package.json).
+#    Sirve para guardar claves secretas sin ponerlas directamente en el código.
+#    Los nombres de las variables en React deben empezar con "REACT_APP_".
+
+# Ejemplo de configuración de Firebase (usa tus datos del panel de Firebase):
+REACT_APP_FIREBASE_API_KEY=tu_api_key_aqui
+REACT_APP_FIREBASE_AUTH_DOMAIN=tu_proyecto.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=tu_proyecto
+REACT_APP_FIREBASE_STORAGE_BUCKET=tu_proyecto.appspot.com
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=1234567890
+REACT_APP_FIREBASE_APP_ID=1:1234567890:web:abcdef123456
+````
+
+---
+
+## 2) Instalar Firebase en el proyecto React
+
+```bash
+# 👉 Este comando agrega la librería oficial de Firebase para que React pueda usarla.
+npm install firebase
+```
+
+---
+
+## 3) Crear archivo de configuración `firebase.js`
+
+```javascript
+// 👉 Este archivo estará en: src/firebase.js
+//    Aquí conectamos la app React con Firebase usando las variables del archivo .env.
+
+import { initializeApp } from "firebase/app"; 
+// ^ Importa la función que arranca Firebase
+
+// Configuración de Firebase usando variables del .env
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY, 
+  // ^ process.env = forma de acceder a las variables de entorno
+
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+};
+
+// Inicializa la app de Firebase
+const app = initializeApp(firebaseConfig);
+
+// Exportamos "app" para poder usar Firebase en otros archivos de React
+export default app;
+```
+
+---
+
+## 4) Usar Firebase en un componente React
+
+```javascript
+// 👉 Ejemplo de uso en src/App.js
+
+import React from "react";
+import app from "./firebase"; 
+// ^ Importa la configuración de Firebase para poder usarla
+
+function App() {
+  return (
+    <div className="App">
+      <h1>Conexión a Firebase lista ✅</h1>
+      {/* Aquí podrías empezar a usar servicios de Firebase (Auth, Firestore, etc.) */}
+    </div>
+  );
+}
+
+export default App;
+```
+
+---
+
+## 5) Recordatorio importante
+
+```text
+# - El archivo .env NO debe subirse a GitHub (porque contiene datos sensibles).
+# - Asegúrate de tenerlo en el archivo .gitignore (CRA ya lo incluye por defecto).
+# - Cuando cambies el .env debes reiniciar el servidor con: npm start
+# - Nunca pongas las claves directamente en el código fuente.
+```
+
+```
+```
