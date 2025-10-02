@@ -240,3 +240,65 @@ DIVIDE (
     CALCULATE ( [Ventas], ALL ( Sales[Category] ) )
 )
 ```
+
+
+
+
+
+*******************
+Sí, puedes. Power BI puede conectarse a un archivo **Excel vía ODBC** y ejecutar SQL sobre él, pero hay condiciones:
+
+---
+
+## 1. Requisito clave
+
+Necesitas tener instalado el **Microsoft Excel ODBC Driver** (se incluye con **Microsoft Access Database Engine** o con Office). Si ese driver está disponible, podrás usarlo en Power BI en **Obtener datos > ODBC**.
+
+---
+
+## 2. Cadena de conexión típica
+
+Ejemplo para un archivo Excel `.xlsx` ubicado en:
+`C:\Users\root1\Documents\DataPowerBI\ejemplo.xlsx`
+
+En la opción **Cadena de conexión** colocas:
+
+```text
+Driver={Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)};
+Dbq=C:\Users\root1\Documents\DataPowerBI\ejemplo.xlsx;
+ReadOnly=1;
+```
+
+---
+
+## 3. Ejemplo de consulta SQL sobre una hoja
+
+Supón que en el archivo tienes una hoja llamada `Hoja1`. Para leerla:
+
+```sql
+SELECT * FROM [Hoja1$]
+```
+
+Notas:
+
+* El nombre de la hoja debe terminar con `$`.
+* Si definiste un rango con nombre en Excel (ejemplo: `TablaClientes`), puedes consultarlo así:
+
+  ```sql
+  SELECT * FROM [TablaClientes]
+  ```
+
+---
+
+## 4. Pasos en Power BI Desktop
+
+1. **Inicio > Obtener datos > ODBC**.
+2. Selecciona el **DSN de Excel** o escribe la cadena de conexión.
+3. En el campo de **Instrucción SQL**, pon la consulta que quieras (ejemplo `SELECT * FROM [Hoja1$]`).
+4. Cargar el resultado como tabla en Power BI.
+
+---
+
+👉 Si no tienes instalado el driver Excel ODBC, Power BI no lo reconocerá. En ese caso la alternativa más directa es usar el conector nativo **Excel** de Power BI (Inicio > Obtener datos > Excel), que también permite consultas SQL indirectamente a través del editor de Power Query.
+
+¿Quieres que te arme un ejemplo con **SQL sobre una hoja Excel** y el equivalente en **M (Power Query)** para que compares?
