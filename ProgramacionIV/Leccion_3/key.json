@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "rodriguez-najera-rogelio-2025",
+  "private_key_id": "dc3593c79e09c34e3737f7f3c7004f2a44fde2d8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCU9By7g30AmOeb\nkygWBF6l3sXlD23rWj6GXzrVTWOJWR9ioBcCVi45gXf9xUZAMyB9uhgytS0C2fi+\ncpa/EPAPFYeRDEwjv8Nh4XEkJ41MAtVwjbYU8IkMCwijvlGOa4hCVmB71hgSxLY5\n1Yp4OzCpU+yLIHs6yRwp8/SMOKcODQfvTRsu67Lopjgb4brjH+I3QzLVve6k74UW\nANKLTLmUpq31frJgxjH1JFN+EwMYarx+Po+ExRvCo/BoMTU57R8S4HnZVZJfTcm9\nIwpbENCPHoz4EZJ4EEW6nBss76qTtAukBx6PzTEmr6Q6RGEk8mB9Wy+eeT/ODUTq\n88UeKqSVAgMBAAECggEADWXk9obnjDfn6VBnJ1sIRAVrdn5lspxA8IEJv5yNt5Gx\nJx1jd6Q9CMYly8lEiuTIAOPnmYDYOVMi5fqHp0yeOZuEDXhDAJownsUsK9NBvEfe\nK/9LLmUxmcg3F23SIMXfKtxhiSU8sBkXYDdeR6p6gFiaRJKZrJpHWSZM5ZbFvzEq\nQwNomMnRttonoFvnbLhCqNzaSy5Tm3ViEiXHxaCfAoBnXEmt6aoFb5k4JdBL+WP0\nkALjxI2bHLFVIWwILDJrRpgvCJC4wbjTbH7DuRxb59Cfsj4lXukLJ5iVagO9IriU\nFdaNmtZrxKEFFIrHckva3ViC2yK/CyZ3A21jN+4L9wKBgQDQ+abz7NmlCed08ZTj\nnNuDLeBJyfmzJHdZYAfK92LHd3iGuD02AwD3+YUAc6ekEXYdfnPB1KfPQJGAcDg6\nSa1D3Ub7gs2gKGYlsvkD2LttLQb6W/N33gXRO0kyBJ1QR+PUn+o/2aEqzhpbKJRT\nFBDt432Qjr3uc73tAY8ovcHm7wKBgQC2eNF/bcZvGdM57OspEr/1LnN60k10af8F\nJ5kndjopxhuaTgeybVipk81wGdI4hC5yWT733xYto9W5k17QNGZ+q14giGM6M758\nrRzjSmQk5Yui3bwJH8U82iaKY++9cUyaiJPeJtxL1hoPU0uSvNTNpYA+ZPmmZZDh\nmBsJ3ohMuwKBgE8FeHpYn9xmqF1yVMjVMbSjDmMYuxFgwrjLNWcssO+YX70hwhPA\ngwdCFWccVNIXwEBa5s7u6R3X3q1gwgJYhepZrFPDHJppbGbpDHzF4eng0vis+J3l\nGPILpxwA3rPS23Y1mlDWrLkRAqph5+Sae+RY18xoDa4zmigbJNVVHBOFAoGAcT3J\nxit6WrjMPcaqqnLYbnDFehPJvdWKTsikY7kbn5Ey0DBc1n7F53eypz9fF3Pw30ZD\nrdDlEq36lZC/5raeZT40zDvYWOaD8Rv+MZCZVcyfPBQf/gmZfopkIL6kqg0GXWEl\nY1j6npXg1mH7JLXL21Q6on5H8NxXbanYHefc7sECgYAKGVngUdW+i+/IKmTxQWMV\nd3ciHRYYBOlkM3YXuYWjfr1d+clqZ1fWKQvd1fLfpUvdYv8ycH9k4KahVEh1AaL+\n0PdQqS8NKCIR7DGdtmFHd7bSOgLp+4ex9cMc18JYOK1e4dEqlLMZpqKUX/wOSNB5\neC2Rp0P5Q/NxqKdpBMY3cQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@rodriguez-najera-rogelio-2025.iam.gserviceaccount.com",
+  "client_id": "107107078719594819217",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40rodriguez-najera-rogelio-2025.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
