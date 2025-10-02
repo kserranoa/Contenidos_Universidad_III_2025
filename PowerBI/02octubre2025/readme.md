@@ -36,87 +36,207 @@ OrderID,OrderDate,Customer,Segment,Country,Category,Product,Quantity,UnitPrice,S
 
 Muestra un subconjunto: solo **Costa Rica, año 2025**, resumido por Cliente y Categoría, con ventas, unidades y precio medio.
 
+Asume que importaste el CSV como tabla **Sales**. Crea 5 **tablas calculadas** separadas, cada una usando solo la función pedida.
+
+### 1) CALCULATETABLE
+
+Subconjunto por país y año.
+
 ```DAX
-t_Ventas_CR_2025 =
-CALCULATETABLE(
-    SELECTCOLUMNS(
-        ADDCOLUMNS(
-            SUMMARIZE(
-                FILTER(
-                    Sales,
-                    Sales[Country] = "Costa Rica"
-                        && YEAR(Sales[OrderDate]) = 2025
-                ),
-                Sales[Customer],
-                Sales[Category]
-            ),
-            "Ventas",     CALCULATE( SUM(Sales[Sales]) ),
-            "Unidades",   CALCULATE( SUM(Sales[Quantity]) ),
-            "Precio Medio",
-                DIVIDE( CALCULATE( SUM(Sales[Sales]) ),
-                        CALCULATE( SUM(Sales[Quantity]) ) )
-        ),
-        "Cliente",      [Customer],
-        "Categoría",    [Category],
-        "Ventas",       [Ventas],
-        "Unidades",     [Unidades],
-        "Precio Medio", [Precio Medio]
-    )
+t_CT_CR_2025 =
+CALCULATETABLE (
+    Sales,
+    Sales[Country] = "Costa Rica",
+    YEAR ( Sales[OrderDate] ) = 2025
 )
 ```
 
----
+### 2) FILTER
 
-## Medidas
-
-Medida base:
+Filtra pedidos Enterprise en CR durante 2025 con ventas ≥ 300.
 
 ```DAX
-Ventas := SUM(Sales[Sales])
+t_FILTER_CR_Ent_2025_300 =
+FILTER (
+    Sales,
+    Sales[Country] = "Costa Rica"
+        && Sales[Segment] = "Enterprise"
+        && YEAR ( Sales[OrderDate] ) = 2025
+        && Sales[Sales] >= 300
+)
 ```
 
-1. **CALCULATE con FILTER**: Ventas de 2025 para *Enterprise*.
+### 3) ADDCOLUMNS
+
+Agrega métricas fila a fila.
 
 ```DAX
-Ventas 2025 Enterprise :=
-CALCULATE(
+t_ADDCOLUMNS_KPIs =
+ADDCOLUMNS (
+    Sales,
+    "Year", YEAR ( Sales[OrderDate] ),
+    "CostoUnit", DIVIDE ( Sales[Cost], Sales[Quantity] ),
+    "Margen", Sales[Sales] - Sales[Cost],
+    "MargenPct", DIVIDE ( Sales[Sales] - Sales[Cost], Sales[Sales] )
+)
+```
+
+### 4) SELECTCOLUMNS
+
+Vista compacta solo con columnas clave y cálculo derivado.
+
+```DAX
+t_SELECTCOLUMNS_Compacta =
+SELECTCOLUMNS (
+    Sales,
+    "OrderID", Sales[OrderID],
+    "Fecha", Sales[OrderDate],
+    "Cliente", Sales[Customer],
+    "Producto", Sales[Product],
+    "Unidades", Sales[Quantity],
+    "PrecioUnit", Sales[UnitPrice],
+    "VentaPorUnidad", DIVIDE ( Sales[Sales], Sales[Quantity] )
+)
+```
+
+### 5) SUMMARIZE
+
+Resumen por Cliente y Categoría con agregados.
+
+```DAX
+t_SUMMARIZE_ClienteCategoria =
+ADDCOLUMNS (
+    SUMMARIZE ( Sales, Sales[Customer], Sales[Category] ),
+    "Ventas",   CALCULATE ( SUM ( Sales[Sales] ) ),
+    "Unidades", CALCULATE ( SUM ( Sales[Quantity] ) ),
+    "Margen",   CALCULATE ( SUM ( Sales[Sales] ) - SUM ( Sales[Cost] ) )
+)
+```
+
+Uso sugerido:
+
+* **t_CT_CR_2025** y **t_FILTER_…** para tablas visuales de detalle.
+* **t_ADDCOLUMNS_KPIs** para inspección fila y KPIs rápidos.
+* **t_SELECTCOLUMNS_Compacta** para export o tablas ligeras.
+* **t_SUMMARIZE_ClienteCategoria** para matriz por Cliente/Categoría.
+
+
+
+Asume que importaste el CSV como tabla **Sales**. Crea 5 **tablas calculadas** separadas, cada una usando solo la función pedida.
+
+### 1) CALCULATETABLE
+
+Subconjunto por país y año.
+
+```DAX
+t_CT_CR_2025 =
+CALCULATETABLE (
+    Sales,
+    Sales[Country] = "Costa Rica",
+    YEAR ( Sales[OrderDate] ) = 2025
+)
+```
+
+### 2) FILTER
+
+Filtra pedidos Enterprise en CR durante 2025 con ventas ≥ 300.
+
+```DAX
+t_FILTER_CR_Ent_2025_300 =
+FILTER (
+    Sales,
+    Sales[Country] = "Costa Rica"
+        && Sales[Segment] = "Enterprise"
+        && YEAR ( Sales[OrderDate] ) = 2025
+        && Sales[Sales] >= 300
+)
+```
+
+### 3) ADDCOLUMNS
+
+Agrega métricas fila a fila.
+
+```DAX
+t_ADDCOLUMNS_KPIs =
+ADDCOLUMNS (
+    Sales,
+    "Year", YEAR ( Sales[OrderDate] ),
+    "CostoUnit", DIVIDE ( Sales[Cost], Sales[Quantity] ),
+    "Margen", Sales[Sales] - Sales[Cost],
+    "MargenPct", DIVIDE ( Sales[Sales] - Sales[Cost], Sales[Sales] )
+)
+```
+
+### 4) SELECTCOLUMNS
+
+Vista compacta solo con columnas clave y cálculo derivado.
+
+```DAX
+t_SELECTCOLUMNS_Compacta =
+SELECTCOLUMNS (
+    Sales,
+    "OrderID", Sales[OrderID],
+    "Fecha", Sales[OrderDate],
+    "Cliente", Sales[Customer],
+    "Producto", Sales[Product],
+    "Unidades", Sales[Quantity],
+    "PrecioUnit", Sales[UnitPrice],
+    "VentaPorUnidad", DIVIDE ( Sales[Sales], Sales[Quantity] )
+)
+```
+
+### 5) SUMMARIZE
+
+Resumen por Cliente y Categoría con agregados.
+
+```DAX
+t_SUMMARIZE_ClienteCategoria =
+ADDCOLUMNS (
+    SUMMARIZE ( Sales, Sales[Customer], Sales[Category] ),
+    "Ventas",   CALCULATE ( SUM ( Sales[Sales] ) ),
+    "Unidades", CALCULATE ( SUM ( Sales[Quantity] ) ),
+    "Margen",   CALCULATE ( SUM ( Sales[Sales] ) - SUM ( Sales[Cost] ) )
+)
+```
+
+Uso sugerido:
+
+* **t_CT_CR_2025** y **t_FILTER_…** para tablas visuales de detalle.
+* **t_ADDCOLUMNS_KPIs** para inspección fila y KPIs rápidos.
+* **t_SELECTCOLUMNS_Compacta** para export o tablas ligeras.
+* **t_SUMMARIZE_ClienteCategoria** para matriz por Cliente/Categoría.
+
+
+
+Aquí tienes las dos medidas. Asume tabla **Sales** y crea primero la base:
+
+```DAX
+Ventas := SUM ( Sales[Sales] )
+```
+
+**1) Con FILTER**
+Ventas de 2025 para Segment = Enterprise en Costa Rica.
+
+```DAX
+Ventas 2025 Enterprise CR :=
+CALCULATE (
     [Ventas],
-    FILTER(
+    FILTER (
         Sales,
-        YEAR(Sales[OrderDate]) = 2025
+        YEAR ( Sales[OrderDate] ) = 2025
             && Sales[Segment] = "Enterprise"
+            && Sales[Country] = "Costa Rica"
     )
 )
 ```
 
-2. **CALCULATE con ALL**: participación de la categoría actual sobre el total sin filtro de Categoría.
+**2) Con ALL**
+Participación de la categoría actual sobre el total sin el filtro de Categoría.
 
 ```DAX
 % Ventas por Categoría :=
-DIVIDE(
+DIVIDE (
     [Ventas],
-    CALCULATE( [Ventas], ALL(Sales[Category]) )
+    CALCULATE ( [Ventas], ALL ( Sales[Category] ) )
 )
 ```
-
-> Opcional con **EXCEPT**: quitar un país del contexto.
-
-```DAX
-Ventas sin Costa Rica :=
-CALCULATE(
-    [Ventas],
-    KEEPFILTERS(
-        TREATAS(
-            EXCEPT( ALL(Sales[Country]), DATATABLE("Country", STRING, {{"Costa Rica"}}) ),
-            Sales[Country]
-        )
-    )
-)
-```
-
-### Notas de uso
-
-* Usa **t_Ventas_CR_2025** para una tabla visual.
-* Usa **Ventas 2025 Enterprise** en tarjetas o gráficos de tendencia.
-* Usa **% Ventas por Categoría** en una matriz por Categoría.
-* El CSV ya incluye registros 2024–2025 y múltiples segmentos/países para probar el contexto de filtros.
