@@ -302,3 +302,50 @@ Notas:
 👉 Si no tienes instalado el driver Excel ODBC, Power BI no lo reconocerá. En ese caso la alternativa más directa es usar el conector nativo **Excel** de Power BI (Inicio > Obtener datos > Excel), que también permite consultas SQL indirectamente a través del editor de Power Query.
 
 ¿Quieres que te arme un ejemplo con **SQL sobre una hoja Excel** y el equivalente en **M (Power Query)** para que compares?
+
+
+
+```sql
+-- Seleccionar todas las filas y columnas
+SELECT * FROM [KJ_PYTHON_MARZO$];
+
+-- Seleccionar columnas específicas
+SELECT Nombre, Nota
+FROM [KJ_PYTHON_MARZO$];
+
+-- Filtrar filas con condición
+SELECT *
+FROM [KJ_PYTHON_MARZO$]
+WHERE Nota >= 80;
+
+-- Ordenar resultados
+SELECT *
+FROM [KJ_PYTHON_MARZO$]
+ORDER BY Nota DESC;
+
+-- Contar registros
+SELECT COUNT(*) AS TotalRegistros
+FROM [KJ_PYTHON_MARZO$];
+
+-- Calcular promedio de una columna numérica
+SELECT AVG(Nota) AS PromedioNotas
+FROM [KJ_PYTHON_MARZO$];
+
+-- Agrupar por una columna y obtener promedio
+SELECT Curso, AVG(Nota) AS PromedioPorCurso
+FROM [KJ_PYTHON_MARZO$]
+GROUP BY Curso;
+
+-- Obtener los valores únicos de una columna
+SELECT DISTINCT Curso
+FROM [KJ_PYTHON_MARZO$];
+
+-- Filtrar con múltiples condiciones
+SELECT *
+FROM [KJ_PYTHON_MARZO$]
+WHERE Nota >= 80 AND Curso = 'Matemáticas';
+
+-- Usar alias para columnas
+SELECT Nombre AS Estudiante, Nota AS Calificación
+FROM [KJ_PYTHON_MARZO$];
+```
