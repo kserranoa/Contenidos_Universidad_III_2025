@@ -1,0 +1,122 @@
+Aquí tienes **un único CSV** listo para copiar y pegar. Úsalo en Power BI Desktop con *Texto/CSV*.
+
+```
+OrderID,OrderDate,Customer,Segment,Country,Category,Product,Quantity,UnitPrice,Sales,Cost
+1001,2024-12-28,Aurelia SA,SMB,Costa Rica,Electronics,Router AX,2,120,240,168
+1002,2025-01-03,Aurelia SA,Enterprise,Costa Rica,Electronics,Switch 24p,3,300,900,630
+1003,2025-01-15,LogiCorp,Enterprise,Costa Rica,Office,Paper A4,50,3,150,105
+1004,2025-02-01,LogiCorp,SMB,Panama,Electronics,Router AX,1,120,120,84
+1005,2025-02-07,Delicias SRL,Consumer,Costa Rica,Grocery,Coffee 1kg,10,9,90,63
+1006,2025-02-14,Delicias SRL,Consumer,Costa Rica,Office,Stapler Pro,4,15,60,42
+1007,2025-03-02,BlueTech,Enterprise,Costa Rica,Electronics,AP WiFi 6,5,180,900,630
+1008,2025-03-12,BlueTech,Enterprise,Costa Rica,Office,Paper A4,80,3,240,168
+1009,2025-03-25,Aurelia SA,SMB,Nicaragua,Office,Markers,12,2,24,17
+1010,2025-04-05,LogiCorp,Enterprise,Costa Rica,Electronics,Switch 24p,2,300,600,420
+1011,2025-04-18,Delicias SRL,Consumer,Costa Rica,Grocery,Tea 500g,15,6,90,63
+1012,2025-04-30,BlueTech,Enterprise,Costa Rica,Electronics,Router AX,3,120,360,252
+1013,2025-05-09,Aurelia SA,SMB,Costa Rica,Office,Paper A4,30,3,90,63
+1014,2025-05-22,LogiCorp,Enterprise,Panama,Electronics,AP WiFi 6,2,180,360,252
+1015,2025-06-03,BlueTech,Enterprise,Costa Rica,Office,Binders,20,4,80,56
+1016,2025-06-17,Delicias SRL,Consumer,Nicaragua,Grocery,Coffee 1kg,5,9,45,32
+1017,2025-07-01,Aurelia SA,SMB,Costa Rica,Electronics,AP WiFi 6,1,180,180,126
+1018,2025-07-15,LogiCorp,Enterprise,Costa Rica,Office,Paper A4,60,3,180,126
+1019,2025-08-02,BlueTech,Enterprise,Costa Rica,Electronics,Switch 24p,1,300,300,210
+1020,2025-08-21,Delicias SRL,Consumer,Costa Rica,Office,Markers,20,2,40,28
+```
+
+### Instrucciones rápidas
+
+1. Importa el CSV en Power BI Desktop.
+2. Nombra la tabla importada **Sales**.
+3. Crea la tabla y las medidas siguientes en *Modelado > Nueva tabla* / *Nueva medida*.
+
+---
+
+## Tabla calculada (usa CALCULATETABLE, FILTER, SUMMARIZE, ADDCOLUMNS, SELECTCOLUMNS)
+
+Muestra un subconjunto: solo **Costa Rica, año 2025**, resumido por Cliente y Categoría, con ventas, unidades y precio medio.
+
+```DAX
+t_Ventas_CR_2025 =
+CALCULATETABLE(
+    SELECTCOLUMNS(
+        ADDCOLUMNS(
+            SUMMARIZE(
+                FILTER(
+                    Sales,
+                    Sales[Country] = "Costa Rica"
+                        && YEAR(Sales[OrderDate]) = 2025
+                ),
+                Sales[Customer],
+                Sales[Category]
+            ),
+            "Ventas",     CALCULATE( SUM(Sales[Sales]) ),
+            "Unidades",   CALCULATE( SUM(Sales[Quantity]) ),
+            "Precio Medio",
+                DIVIDE( CALCULATE( SUM(Sales[Sales]) ),
+                        CALCULATE( SUM(Sales[Quantity]) ) )
+        ),
+        "Cliente",      [Customer],
+        "Categoría",    [Category],
+        "Ventas",       [Ventas],
+        "Unidades",     [Unidades],
+        "Precio Medio", [Precio Medio]
+    )
+)
+```
+
+---
+
+## Medidas
+
+Medida base:
+
+```DAX
+Ventas := SUM(Sales[Sales])
+```
+
+1. **CALCULATE con FILTER**: Ventas de 2025 para *Enterprise*.
+
+```DAX
+Ventas 2025 Enterprise :=
+CALCULATE(
+    [Ventas],
+    FILTER(
+        Sales,
+        YEAR(Sales[OrderDate]) = 2025
+            && Sales[Segment] = "Enterprise"
+    )
+)
+```
+
+2. **CALCULATE con ALL**: participación de la categoría actual sobre el total sin filtro de Categoría.
+
+```DAX
+% Ventas por Categoría :=
+DIVIDE(
+    [Ventas],
+    CALCULATE( [Ventas], ALL(Sales[Category]) )
+)
+```
+
+> Opcional con **EXCEPT**: quitar un país del contexto.
+
+```DAX
+Ventas sin Costa Rica :=
+CALCULATE(
+    [Ventas],
+    KEEPFILTERS(
+        TREATAS(
+            EXCEPT( ALL(Sales[Country]), DATATABLE("Country", STRING, {{"Costa Rica"}}) ),
+            Sales[Country]
+        )
+    )
+)
+```
+
+### Notas de uso
+
+* Usa **t_Ventas_CR_2025** para una tabla visual.
+* Usa **Ventas 2025 Enterprise** en tarjetas o gráficos de tendencia.
+* Usa **% Ventas por Categoría** en una matriz por Categoría.
+* El CSV ya incluye registros 2024–2025 y múltiples segmentos/países para probar el contexto de filtros.
