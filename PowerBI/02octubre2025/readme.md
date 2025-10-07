@@ -349,3 +349,162 @@ WHERE Nota >= 80 AND Curso = 'Matemáticas';
 SELECT Nombre AS Estudiante, Nota AS Calificación
 FROM [KJ_PYTHON_MARZO$];
 ```
+
+
+# Python
+
+```python
+python3 -m venv myenv
+```
+
+
+Perfecto 👍 — te explico con precisión técnica.
+En **Power BI Desktop**, puedes usar **scripts de Python** para:
+
+1. **Importar datos** (en el Editor de consultas).
+2. **Transformar datos** (como parte del Power Query).
+3. **Crear visualizaciones personalizadas** (en el panel de visualización).
+
+---
+
+### 🧩 Requisitos previos
+
+Antes de ejecutar cualquier código:
+
+1. Instala **Python 3.x** en tu equipo.
+2. En Power BI Desktop → *Archivo → Opciones y configuración → Opciones → Scripts de Python* → selecciona la ruta del ejecutable de Python.
+3. Instala las librerías más comunes:
+
+   ```bash
+   pip install pandas matplotlib seaborn numpy
+   ```
+
+---
+
+## 🚀 EJEMPLOS PRÁCTICOS DE CÓDIGOS PYTHON PARA POWER BI DESKTOP
+
+---
+
+### 🟢 1. Cargar un DataFrame simple (prueba rápida)
+
+```python
+import pandas as pd
+
+data = {
+    "Producto": ["A", "B", "C", "D"],
+    "Ventas": [100, 150, 90, 120],
+    "Costo": [60, 80, 50, 70]
+}
+df = pd.DataFrame(data)
+df
+```
+
+✅ *Se ejecuta en “Obtener datos → Script de Python”*
+Power BI reconocerá `df` como una tabla.
+
+---
+
+### 🔵 2. Limpiar y transformar datos
+
+(ideal en el **Editor de consultas**)
+
+```python
+import pandas as pd
+
+# Power BI pasa tu tabla actual como variable "dataset"
+dataset["Margen"] = dataset["Ventas"] - dataset["Costo"]
+dataset["Rentabilidad_%"] = (dataset["Margen"] / dataset["Costo"]) * 100
+
+dataset
+```
+
+✅ *Agrega columnas calculadas directamente.*
+
+---
+
+### 🟠 3. Visualización con Matplotlib
+
+(usa el **visual Python**)
+
+```python
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(6,4))
+plt.bar(dataset["Producto"], dataset["Ventas"], color='skyblue')
+plt.title("Ventas por Producto")
+plt.xlabel("Producto")
+plt.ylabel("Ventas")
+plt.show()
+```
+
+✅ *Genera un gráfico dinámico dentro del Power BI.*
+
+---
+
+### 🔴 4. Visualización con Seaborn
+
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(6,4))
+sns.scatterplot(data=dataset, x="Costo", y="Ventas", hue="Producto", s=100)
+plt.title("Relación entre Costo y Ventas")
+plt.show()
+```
+
+---
+
+### 🟣 5. Detectar valores atípicos (outliers)
+
+```python
+import pandas as pd
+import numpy as np
+
+Q1 = dataset["Ventas"].quantile(0.25)
+Q3 = dataset["Ventas"].quantile(0.75)
+IQR = Q3 - Q1
+
+dataset["Es_Outlier"] = np.where(
+    (dataset["Ventas"] < (Q1 - 1.5 * IQR)) | (dataset["Ventas"] > (Q3 + 1.5 * IQR)),
+    "Sí",
+    "No"
+)
+dataset
+```
+
+✅ *Puedes marcar visualmente los outliers y filtrarlos después.*
+
+---
+
+### 🧠 6. Análisis de correlación
+
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(6,4))
+sns.heatmap(dataset.corr(), annot=True, cmap="coolwarm", fmt=".2f")
+plt.title("Matriz de correlación")
+plt.show()
+```
+
+---
+
+### ⚙️ 7. Agrupar y resumir datos
+
+```python
+import pandas as pd
+
+resumen = dataset.groupby("Producto").agg({
+    "Ventas": "sum",
+    "Costo": "sum"
+}).reset_index()
+
+resumen["Margen_Total"] = resumen["Ventas"] - resumen["Costo"]
+resumen
+```
+
+---
+
+
