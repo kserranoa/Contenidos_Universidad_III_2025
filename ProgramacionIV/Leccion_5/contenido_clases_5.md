@@ -1,5 +1,3 @@
----
-
 ### 1) HTTP + `timeout` + reintentos con backoff (mínimo)
 
 `01_http_timeout_retry.py`
