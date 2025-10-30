@@ -96,7 +96,8 @@ from flask import Flask, request, jsonify
 app=Flask(__name__)
 u,p="user","123"
 @app.route("/data")
-def d(): return jsonify({"msg":"ok"}) if request.authorization and request.authorization.username==u and request.authorization.password==p else ("No autorizado",401)
+def d(): return jsonify({"msg":"ok"}) if request.authorization and request.authorization.username==u
+and request.authorization.password==p else ("No autorizado",401)
 app.run()
 ```
 
