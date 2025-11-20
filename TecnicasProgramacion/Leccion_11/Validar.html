@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Validación con React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- React y ReactDOM desde CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Babel para poder usar JSX directamente -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Tu código React -->
+    <script type="text/babel">
+      const { useState } = React;
+
+      function InputValidado() {
+        const [valor, setValor] = useState("");
+        const [error, setError] = useState("");
+
+        const validar = (texto) => {
+          // 1. No números ni caracteres especiales: solo letras (A-Z, a-z)
+          const soloLetras = /^[A-Za-z]+$/;
+
+          if (texto.length === 0) {
+            setError("");
+            return;
+          }
+
+          if (!soloLetras.test(texto)) {
+            setError("Solo se permiten letras (sin números ni caracteres especiales).");
+            return;
+          }
+
+          // 2. Más de 3 caracteres y menos de 7 (es decir, entre 4 y 6)
+          if (texto.length <= 3) {
+            setError("Debe tener más de 3 caracteres.");
+            return;
+          }
+
+          if (texto.length >= 7) {
+            setError("Debe tener menos de 7 caracteres.");
+            return;
+          }
+
+          // Si todo está bien
+          setError("");
+        };
+
+        const handleChange = (e) => {
+          const nuevoValor = e.target.value;
+          setValor(nuevoValor);
+          validar(nuevoValor);
+        };
+
+        const esValido = error === "" && valor.length >= 4 && valor.length <= 6;
+
+        return (
+          <div style={{ fontFamily: "sans-serif", margin: "20px" }}>
+            <label>
+              Ingresa texto (solo letras, entre 4 y 6 caracteres):
+              <br />
+              <input
+                type="text"
+                value={valor}
+                onChange={handleChange}
+                style={{ padding: "4px", marginTop: "8px" }}
+              />
+            </label>
+
+            {error && (
+              <p style={{ color: "red", marginTop: "8px" }}>
+                {error}
+              </p>
+            )}
+
+            {esValido && (
+              <p style={{ color: "green", marginTop: "8px" }}>
+                Valor válido.
+              </p>
+            )}
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<InputValidado />);
+    </script>
+  </body>
+</html>
